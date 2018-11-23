@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Adam A. Valenzuela
+  description: AWS Scout2 from nccgroup - Now in Ansible form
+  company: ObjectTechnica.io
+
+  license: license ( MIT )
+
+  min_ansible_version: 2.6
+
+ platforms:
+  - name: CentOS
+      versions:
+        - 7
+  - name: RedHat
+      versions:
+        - 7
+ - name: Ubuntu
+        - 16

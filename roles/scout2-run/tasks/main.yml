@@ -1,0 +1,23 @@
+- name: Clean previous Scout2 artifacts from path
+  file:
+    state: absent
+    path: "{{ aws_scout2_reports_locaiton }}/"
+
+- name: Scout2 scan
+  command: Scout2 --no-browser --report-dir "{{ aws_scout2_reports_locaiton }}"
+  environment:
+  AWS_ACCESS_KEY: "{{ aws_access_key }}"
+  AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key }}"
+
+- name: Update fresh Scout2 data
+  file:
+      path: /home/{{ ansible_ssh_user }}/Scout2-Reports
+      state: directory
+      owner: "{{ ansible_ssh_user }}"
+      group: "{{ ansible_ssh_user }}"
+      mode: 0775
+      recurse: yes
+
+- name: AWS Scout2 report downloaded
+  debug:
+    msg: Report can be found at {{ aws_scout2_reports_locaiton }}/report.html
