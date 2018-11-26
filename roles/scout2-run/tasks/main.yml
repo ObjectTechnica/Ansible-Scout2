@@ -1,10 +1,10 @@
 - name: Clean previous Scout2 artifacts from path
   file:
     state: absent
-    path: "{{ aws_scout2_reports_locaiton }}/"
+    path: "{{ aws_scout2_reports_location }}/"
 
 - name: Scout2 scan
-  command: Scout2 --no-browser --report-dir "{{ aws_scout2_reports_locaiton }}"
+  command: Scout2 --no-browser --report-dir "{{ aws_scout2_reports_location }}"
   environment:
   AWS_ACCESS_KEY: "{{ aws_access_key }}"
   AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key }}"
@@ -20,4 +20,4 @@
 
 - name: AWS Scout2 report downloaded
   debug:
-    msg: Report can be found at {{ aws_scout2_reports_locaiton }}/report.html
+    msg: Report can be found at {{ aws_scout2_reports_location }}/report.html
