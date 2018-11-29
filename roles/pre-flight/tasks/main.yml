@@ -1,0 +1,39 @@
+---
+- name: pre-flight - Load system with needed packages for Ansible/AWS/Scout2 deployments
+  yum: name={{item}} state=present disable_gpg_check=yes
+  with_items:
+    - epel-release
+    - libselinux-python
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: pre-flight - Load system with needed packages for Ansible/AWS/Scout2 deployments
+  yum: name={{item}} state=present disable_gpg_check=yes
+  with_items:
+    - python
+    - python-pip
+    - awscli
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: pre-flight - Load system with needed packages for Ansible/AWS/Scout2 deployments
+  apt: 
+    name: "{{ packages }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  vars:
+    packages:
+    - python
+    - python-pip
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: pre-flight - Load system with needed packages for Ansible/AWS/Scout2 deployments
+  pip: name={{item}} state=present
+  with_items:
+    - awsscout2
+
+- name: Create Holding Directory for Scout2 data
+  file:
+      path: /home/{{ ansible_ssh_user }}/Scout2-Reports
+      state: directory
+      owner: "{{ ansible_ssh_user }}"
+      group: "{{ ansible_ssh_user }}"
+      mode: 0775

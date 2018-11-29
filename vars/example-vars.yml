@@ -1,0 +1,26 @@
+---
+###
+# Scout2
+###
+aws_access_key: aws-access-key
+aws_secret_key: aws-secret-access-key
+pem_key: /path/to/pem/keys/name-of-key.pem
+aws_scout2_reports_location: /home/{{ ansible_user }}/Scout2-Reports
+
+#####
+# Use variables with Ansble Vault
+# To create a new encrypted data file, run the following command:
+# ansible-vault create foo.yml
+#
+# To edit an encrypted file in place, use the ansible-vault edit command. 
+# ansible-vault edit foo.yml
+#
+# If you have existing files that you wish to encrypt, use the ansible-vault encrypt command.
+# ansible-vault encrypt foo.yml bar.yml baz.yml
+#
+# If you have existing files that you no longer want to keep encrypted, you can permanently decrypt them by running the ansible-vault decrypt command.
+# ansible-vault decrypt foo.yml bar.yml baz.yml
+#
+# If you want to view the contents of an encrypted file without editing it, you can use the ansible-vault view command:
+# ansible-vault view foo.yml bar.yml baz.yml
+#####

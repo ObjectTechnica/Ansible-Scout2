@@ -1,0 +1,22 @@
+---
+- hosts: Scout2
+  gather_facts: true
+  name: Amazon Preflight and Setup for Scout2
+  become: yes
+
+  vars_files:
+    - vars/vars.yml
+
+  roles:
+    - { role: pre-flight, tags: pre-flight }
+
+- hosts: Scout2
+  gather_facts: false
+  name: Scout2 data collection and reporting
+  become: yes
+
+  vars_files:
+    - vars/vars.yml
+
+  roles:
+    - { role: scout2-run, tags: scout2-run }
