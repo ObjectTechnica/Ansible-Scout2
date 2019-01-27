@@ -1,11 +1,11 @@
 ---
 ###
-# Scout2
+# ScoutSuite
 ###
 aws_access_key: aws-access-key
 aws_secret_key: aws-secret-access-key
 pem_key: /path/to/pem/keys/name-of-key.pem
-aws_scout2_reports_locaiton: /home/{{ ansible_user }}/Scout2-Reports
+aws_scoutsuite_reports_locaiton: /home/{{ ansible_user }}/ScoutSuite-Reports
 
 #####
 # Use variables with Ansble Vault

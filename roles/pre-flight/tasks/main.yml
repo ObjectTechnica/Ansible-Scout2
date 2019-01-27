@@ -1,24 +1,27 @@
 ---
-- name: pre-flight - Load system with needed packages for Ansible/AWS/Scout2 deployments
-  yum: name={{item}}
-    state: present
-    disable_gpg_check: yes
-  with_items:
+- name: pre-flight - Load CentOS system with EPEL Repo
+  yum: 
+    name: "{{ packages }}"
+  vars:
+    packages:
     - epel-release
-    - libselinux-python
+    state: forcereinstall
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-- name: pre-flight - Load system with needed packages for Ansible/AWS/Scout2 deployments
-  yum: name={{item}}
-    state: present
-    disable_gpg_check: yes
-  with_items:
+- name: pre-flight - Load CentOS system with python packages for ScoutSuite
+  yum: 
+    name: "{{ packages }}"
+  vars:
+    packages:
     - python
     - python-pip
-    - awscli
+    - python34
+    - python34-pip
+    - libselinux-python
+    state: forcereinstall
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-- name: pre-flight - Load system with needed packages for Ansible/AWS/Scout2 deployments
+- name: pre-flight - Load Ubuntu system with python packages for ScoutSuite
   apt: 
     name: "{{ packages }}"
     update_cache: yes
@@ -27,17 +30,40 @@
     packages:
     - python
     - python-pip
+    - python34
+    - python34-pip
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: pre-flight - Load system with needed packages for Ansible/AWS/Scout2 deployments
-  pip: name={{item}}
-    state: present
-  with_items:
-    - awsscout2
+- name: pre-flight - upgrading pip because thats what you do
+  pip:
+    name: pip
+    extra_args: --upgrade
+    executable: pip
 
-- name: Create Holding Directory for Scout2 data
+- name: pre-flight - Install pip requirements.txt
+  pip: 
+    name: "{{ packages }}"
+    executable: pip3
+  vars:
+    packages:
+    - python-dateutil>=2.2
+    - netaddr>=0.7.11
+    - boto3>=1.9.60
+    - opinel>=3.3.4
+    - pyyaml>=3.12
+    - scoutsuite
+
+#- name: pre-flight - Load system with ScoutSuite
+#  pip: 
+#    name: "{{ packages }}"
+#  vars:
+#    packages:
+#    - scoutsuite
+#  executable: pip
+
+- name: Create Holding Directory for ScoutSuite data
   file:
-      path: /home/{{ ansible_ssh_user }}/Scout2-Reports
+      path: /home/{{ ansible_ssh_user }}/ScoutSuite-Reports
       state: directory
       owner: "{{ ansible_ssh_user }}"
       group: "{{ ansible_ssh_user }}"

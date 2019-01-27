@@ -1,11 +1,11 @@
 galaxy_info:
   author: Adam A. Valenzuela
-  description: AWS Scout2 from nccgroup - Now in Ansible form
+  description: ScoutSuite from nccgroup - Now in Ansible form with HTML viewing ability
   company: ObjectTechnica.io
 
   license: license ( MIT )
 
-  min_ansible_version: 2.6
+  min_ansible_version: 2.7
 
  platforms:
   - name: CentOS
